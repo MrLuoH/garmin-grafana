@@ -1,0 +1,18 @@
+name: Sync Garmin Data (Local Runner)
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'   # 每6小时执行一次（可改成你想要的时间）
+  workflow_dispatch:        # 允许手动触发（GitHub界面按钮）
+
+jobs:
+  fetch:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Garmin Data Sync
+        run: |
+          cd E:\garmin-grafana
+          docker compose run --rm garmin-fetch-data
